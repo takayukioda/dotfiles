@@ -1,7 +1,7 @@
 [user]
 	name = takayukioda
 	email = takayuki@odashi.me
-	signingkey = 14D0EB6E54DDD196
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMEU8lLfNI/KLZvezeX2idrUZXkrtaWp/UGDNlpyFvzG
 [core]
 	editor = vim
 	pager = less -r -FX
@@ -17,8 +17,9 @@
 	amend      = commit --amend
 	cancel     = reset --mixed HEAD^
 	fdiff      = diff --ignore-all-space --no-index
-	files      = !cd ${GIT_PREFIX:-.} && git ls-tree -z --name-only HEAD | xargs -0 -n1 -I@ -- git log -1 --pretty=format:'%C(green)%ai%Creset %C(yellow)%h%Creset @ %C(blue)(%ar)%Creset %C(red)<%an>%Creset' -- @
+	files      = !cd ${GIT_PREFIX:-.}/${1:-} && git ls-tree -z --name-only HEAD | xargs -0 -n1 -I@ -- git log -1 --pretty=format:'%C(green)%ai%Creset %C(yellow)%h%Creset @ %C(blue)(%ar)%Creset %C(red)<%an>%Creset' -- @
 	forcepush  = push --force-with-lease
+	fresh      = !git pull && git remote prune origin && git plune
 	fwdiff     = diff --ignore-all-space --word-diff --no-index
 	ibase      = !sh -c 'git rebase -i --autosquash $(git merge-base ${1:-main} HEAD)' -
 	imbase     = !sh -c 'git rebase -i --autosquash $(git merge-base ${1:-master} HEAD)' -
@@ -58,14 +59,12 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [gpg]
-	program = gpg
+	format = ssh
+
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
 [commit]
 	gpgsign = true
 [pull]

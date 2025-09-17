@@ -31,8 +31,8 @@ promptsh="/opt/homebrew/etc/bash_completion.d/git-prompt.sh"
 setopt prompt_subst
 
 # Prompt
-PROMPT='%F{cyan}[%T]%f %F{yellow}%~%f%F{magenta}$(__git_ps1)%f
-%F{green}%n@%m%f %# '
+PROMPT='${LOCAL_PROMPT:-"%F{cyan}[%T]%f %F{yellow}%~%f%F{magenta}$(__git_ps1)%f
+%F{green}%n@%m%f %# "}'
 
 # Load alias
 source $HOME/.zsh_alias
@@ -59,3 +59,11 @@ export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # GPG
 export GPG_TTY=$TTY
+
+# Setup hook for nodenv
+eval "$(nodenv init - zsh)"
+
+# Setup hook for pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+[[ -d ${PYENV_ROOT}/bin ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
+eval "$(pyenv init -)"

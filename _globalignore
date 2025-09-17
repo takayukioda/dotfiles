@@ -10,13 +10,19 @@
 ### direnv
 .envrc
 
+### venv
+.venv
+
+# Editors
 ### vim
 *sw[a-z]
 
-# Editors
 
 ### IntelliJ
 *.iml
 
 ### VSCode
 .vscode/
+
+### Zed
+.zed/

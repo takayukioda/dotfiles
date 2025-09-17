@@ -23,7 +23,7 @@ function gd() {
 function clone () {
 	local REPOSITORY=${1}
 	local ACCOUNT=${2:-takayukioda}
-	local HOST=${3:-github.com}
+	local HOST=${3:-github.inc}
 
 	if [ -n "$(echo "${REPOSITORY}" | grep '/' 2>/dev/null)" ]; then
 		HOST=${2:-${HOST}}
@@ -39,7 +39,7 @@ function clone () {
 		return 3
 	fi
 
-	local PROJECT_ROOT=${HOME}/${HOST}
+	local PROJECT_ROOT=${HOME}/github.com
 
 	if [ ! -d ${ACCOUNT} ]; then
 		echo "Creating account directory ${ACCOUNT}"
@@ -54,7 +54,7 @@ function clone () {
 	fi
 
 
-	git clone ${HOST}:${ACCOUNT}/${REPOSITORY}.git && \
+	git clone git@${HOST}:${ACCOUNT}/${REPOSITORY}.git && \
 		echo "${ACCOUNT}/${REPOSITORY} has been cloned 😉"
 
 	[ $? -ne 0 ] && \
